@@ -37,4 +37,14 @@ public class TaskManagerTests
 
         Assert.True(task.IsCompleted);
     }
+
+    [Fact]
+    public void GetTaskById_ShouldReturnNullWhenTaskDoesNotExist()
+    {
+        var manager = new TaskManager();
+
+        var task = manager.GetTaskById(Guid.NewGuid());
+
+        Assert.Null(task);
+    }
 }

@@ -20,12 +20,18 @@ public class TaskManager
 
     public TaskItem? GetTaskById(Guid id)
     {
-        return _tasks.FirstOrDefault(task => task.Id == id) ?? throw new KeyNotFoundException($"Task with id '{id}' was not found.");
+        return _tasks.FirstOrDefault(task => task.Id == id);
     }
 
     public TaskItem CompleteTask(Guid id)
     {
         var task = GetTaskById(id);
+
+        if (task is null)
+        {
+            throw new KeyNotFoundException($"Task with id '{id}' was not found.");
+        }
+
         task.ToggleCompletion();
         return task;
     }
