@@ -1,10 +1,15 @@
 using TaskFlow.Console;
 
 var taskManager = new TaskManager();
+var isInteractive = !Console.IsInputRedirected && !Console.IsOutputRedirected;
 
 while (true)
 {
-    Console.Clear();
+    if (isInteractive)
+    {
+        Console.Clear();
+    }
+
     Console.WriteLine("=== TaskFlow ===");
     Console.WriteLine("1 - Adicionar tarefa");
     Console.WriteLine("2 - Listar tarefas");
@@ -121,6 +126,10 @@ static void ListTasks(TaskManager taskManager)
 static void Pause()
 {
     Console.WriteLine();
-    Console.Write("Pressione Enter para continuar...");
-    Console.ReadLine();
+
+    if (!Console.IsInputRedirected && !Console.IsOutputRedirected)
+    {
+        Console.Write("Pressione Enter para continuar...");
+        Console.ReadLine();
+    }
 }
